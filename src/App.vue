@@ -14,19 +14,12 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>1</td>
-						<td>语文</td>
-						<td class="red">56</td>
-						<td>Tue Jun 07 2022 10:00:00 GMT+0800 (中国标准时间)</td>
-						<td><a href="#">删除</a></td>
-					</tr>
-					<tr>
-						<td>2</td>
-						<td>数学</td>
-						<td>100</td>
-						<td>Tue Jun 07 2022 10:00:00 GMT+0800 (中国标准时间)</td>
-						<td><a href="#">删除</a></td>
+					<tr v-for="(item, index) in list" :key="item.id">
+						<td>{{ index + 1 }}</td>
+						<td>{{ item.subject }}</td>
+						<td class="red">{{ item.score }}</td>
+						<td>{{ item.date }}</td>
+						<td><a href="#" @click="deleteData(item.id)">删除</a></td>
 					</tr>
 				</tbody>
 				<!-- <tbody >
@@ -50,19 +43,19 @@
 			<div class="form-item">
 				<div class="label">科目：</div>
 				<div class="input">
-					<input type="text" placeholder="请输入科目" />
+					<input type="text" placeholder="请输入科目" v-model="subject" />
 				</div>
 			</div>
 			<div class="form-item">
 				<div class="label">分数：</div>
 				<div class="input">
-					<input type="text" placeholder="请输入分数" />
+					<input type="text" placeholder="请输入分数" v-model="score" />
 				</div>
 			</div>
 			<div class="form-item">
 				<div class="label"></div>
 				<div class="input">
-					<button class="submit">添加</button>
+					<button class="submit" @click="add">添加</button>
 				</div>
 			</div>
 		</div>
@@ -83,6 +76,30 @@
 				subject: '',
 				score: '',
 			};
+		},
+		methods: {
+			add() {
+				if (this.subject === '' || this.score === '') {
+					return alert('输入不能为空');
+				}
+				const obj = {
+					id: Math.random(),
+					subject: this.subject,
+					score: this.score,
+					date: new Date(),
+				};
+				this.list.push(obj);
+				this.subject = '';
+				this.score = '';
+			},
+			deleteData(id) {
+				// this.list.splice(id, 1);
+				// 使用 findIndex 找到正确的数组索引
+				const index = this.list.findIndex((item) => item.id === id);
+				if (index !== -1) {
+					this.list.splice(index, 1);
+				}
+			},
 		},
 	};
 </script>
