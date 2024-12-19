@@ -13,7 +13,7 @@
 						<th>操作</th>
 					</tr>
 				</thead>
-				<tbody>
+				<tbody v-if="list.length !== 0">
 					<tr v-for="(item, index) in list" :key="item.id">
 						<td>{{ index + 1 }}</td>
 						<td>{{ item.subject }}</td>
@@ -22,13 +22,13 @@
 						<td><a href="#" @click="deleteData(item.id)">删除</a></td>
 					</tr>
 				</tbody>
-				<!-- <tbody >
-          <tr>
-            <td colspan="5">
-              <span class="none">暂无数据</span>
-            </td>
-          </tr>
-        </tbody> -->
+				<tbody v-else>
+					<tr>
+						<td colspan="5">
+							<span class="none">暂无数据</span>
+						</td>
+					</tr>
+				</tbody>
 				<tfoot>
 					<tr>
 						<td colspan="5">
@@ -63,6 +63,7 @@
 </template>
 
 <script>
+	import {moment} from 'moment';
 	export default {
 		name: 'ScoreCase',
 		data() {
