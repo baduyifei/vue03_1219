@@ -3,12 +3,12 @@
 <template>
 	<div>
 		<span>全选:</span>
-		<input type="checkbox" />
-		<button>反选</button>
+		<input type="checkbox" v-model="bigSelectBtn" />
+		<!-- <button>反选</button> -->
 		<ul>
-			<li>
-				<input type="checkbox" />
-				<span>名字</span>
+			<li v-for="(item, index) in arr" :key="index">
+				<input type="checkbox" v-model="item.c" @click="smallSelect" />
+				<span>{{ item.name }}</span>
 			</li>
 		</ul>
 	</div>
@@ -36,7 +36,14 @@
 						c: false,
 					},
 				],
+				bigSelectBtn: false,
 			};
+		},
+		methods: {
+			smallSelect() {
+				// this.bigSelectBtn = this.arr.every((item) => item.c === true);
+				this.bigSelectBtn = this.arr.every((item) => item.c); // 更新全选按钮状态
+			},
 		},
 	};
 </script>
