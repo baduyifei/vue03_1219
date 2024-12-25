@@ -69,13 +69,12 @@
 		name: 'ScoreCase',
 		data() {
 			return {
-				// list: [
-				// 	{id: 15, subject: '语文', score: 89, date: new Date('2022/06/07 10:00:00')},
-				// 	{id: 27, subject: '数学', score: 100, date: new Date('2022/06/07 15:00:00')},
-				// 	{id: 32, subject: '英语', score: 56, date: new Date('2022/06/08 10:00:00')},
-				// 	{id: 41, subject: '物理', score: 76, date: new Date('2022/06/08 10:00:00')},
-				// ],
-				list: JSON.parse(localStorage.getItem('dataKey')) || [],
+				list: [
+					{id: 15, subject: '语文', score: 89, date: new Date('2022/06/07 10:00:00')},
+					{id: 27, subject: '数学', score: 100, date: new Date('2022/06/07 15:00:00')},
+					{id: 32, subject: '英语', score: 56, date: new Date('2022/06/08 10:00:00')},
+					{id: 41, subject: '物理', score: 76, date: new Date('2022/06/08 10:00:00')},
+				],
 				subject: '',
 				score: '',
 			};
@@ -102,8 +101,6 @@
 				this.list.push(obj);
 				this.subject = '';
 				this.score = '';
-				// ls 本地化
-				localStorage.setItem('dataKey', JSON.stringify(this.list));
 			},
 			deleteData(id) {
 				// this.list.splice(id, 1);
@@ -112,8 +109,6 @@
 				if (index !== -1) {
 					this.list.splice(index, 1);
 				}
-				// ls 本地化
-				localStorage.setItem('dataKey', JSON.stringify(this.list));
 			},
 			timeFormat(timeStr) {
 				return moment(timeStr).format('YYYY-MM-DD HH:mm:ss');
