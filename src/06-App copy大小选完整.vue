@@ -3,11 +3,11 @@
 <template>
 	<div>
 		<span>全选:</span>
-		<input type="checkbox" v-model="bigSelectBtn" @change="bigSelect" />
+		<input type="checkbox" v-model="bigBtn" @change="bigSelect()" />
 		<button @click="invertSelection">反选</button>
 		<ul>
 			<li v-for="(item, index) in arr" :key="index">
-				<input type="checkbox" v-model="item.c" @change="smallSelect" />
+				<input type="checkbox" v-model="item.c" @change="smallSelect()" />
 				<span>{{ item.name }}</span>
 			</li>
 		</ul>
@@ -36,23 +36,23 @@
 						c: false,
 					},
 				],
-				bigSelectBtn: false,
+				bigBtn: false,
 			};
 		},
 		methods: {
 			// 1. 小选 => 控制大选
 			smallSelect() {
-				// this.bigSelectBtn = this.arr.every((item) => item.c === true);
-				this.bigSelectBtn = this.arr.every((item) => item.c === true); // 更新全选按钮状态
+				// this.bigBtn = this.arr.every((item) => item.c === true);
+				this.bigBtn = this.arr.every((item) => item.c === true); // 更新全选按钮状态
 			},
 			// 2. 大选 => 控制所有小选
 			bigSelect() {
-				this.arr.forEach((item) => (item.c = this.bigSelectBtn));
+				this.arr.forEach((item) => (item.c = this.bigBtn));
 			},
 			// 3. 反选按钮
 			invertSelection() {
 				// 方法 1:
-				// this.bigSelectBtn = !this.bigSelectBtn;
+				// this.bigBtn = !this.bigBtn;
 				// this.bigSelect(); // 调用方法, 更新4 个小选按钮状态
 				// 方法 2:
 				this.arr.forEach((item) => {
