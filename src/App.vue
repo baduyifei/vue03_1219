@@ -2,15 +2,15 @@
 
 <template>
 	<div>
-		<h2>计算属性 vs Methods 对比</h2>
-		<!-- 计算属性 -->
-		<div>计算属性结果: {{ fullName }}</div>
-
-		<!-- 方法 -->
-		<div>方法调用结果: {{ getFullName() }}</div>
-
-		<!-- 触发重新渲染的按钮 -->
-		<button @click="count++">点击计数: {{ count }}</button>
+		<span>全选:</span>
+		<input type="checkbox" v-model="isAllSelected" />
+		<button @click="invertSelection">反选</button>
+		<ul>
+			<li v-for="(item, index) in arr" :key="index">
+				<input type="checkbox" v-model="item.c" />
+				<span>{{ item.name }}</span>
+			</li>
+		</ul>
 	</div>
 </template>
 
@@ -18,24 +18,42 @@
 	export default {
 		data() {
 			return {
-				firstName: '张2',
-				lastName: '三',
-				count: 0,
+				arr: [
+					{
+						name: '猪八戒',
+						c: false,
+					},
+					{
+						name: '孙悟空',
+						c: false,
+					},
+					{
+						name: '唐僧',
+						c: false,
+					},
+					{
+						name: '白龙马',
+						c: false,
+					},
+				],
 			};
 		},
-
-		computed: {
-			fullName() {
-				console.log('计算属性被调用');
-				return this.firstName + this.lastName;
+		methods: {
+			invertSelection() {
+				this.arr.forEach((item) => (item.c = !item.c));
 			},
 		},
-
-		methods: {
-			getFullName() {
-				console.log('方法被调用');
-				return this.firstName + this.lastName;
+		computed: {
+			isAllSelected: {
+				get() {
+					return this.arr.every((item) => item.c);
+				},
+				set(value) {
+					this.arr.forEach((item) => (item.c = value));
+				},
 			},
 		},
 	};
 </script>
+
+<style></style>
