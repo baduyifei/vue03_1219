@@ -79,6 +79,10 @@
 				score: '',
 			};
 		},
+		computed: {
+			//
+			//
+		},
 		methods: {
 			add() {
 				if (this.subject === '' || this.score === '') {
