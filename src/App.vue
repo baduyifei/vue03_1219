@@ -29,6 +29,9 @@
 						</td>
 					</tr>
 				</tbody>
+				<tbody>
+					<button @click="edit()">点击修改分数</button>
+				</tbody>
 				<tfoot>
 					<tr>
 						<td colspan="5">
@@ -80,14 +83,7 @@
 				score: '',
 			};
 		},
-		computed: {
-			getSum() {
-				return this.list.reduce((sum, item) => (sum += item.score), 0);
-			},
-			getAverage() {
-				return this.list.length ? (this.getSum / this.list.length).toFixed(2) : 0;
-			},
-		},
+
 		methods: {
 			add() {
 				if (this.subject === '' || this.score === '') {
@@ -102,8 +98,8 @@
 				this.list.push(obj);
 				this.subject = '';
 				this.score = '';
-				// ls 本地化
-				localStorage.setItem('dataKey', JSON.stringify(this.list));
+				// // ls 本地化
+				// localStorage.setItem('dataKey', JSON.stringify(this.list));
 			},
 			deleteData(id) {
 				// this.list.splice(id, 1);
@@ -112,11 +108,36 @@
 				if (index !== -1) {
 					this.list.splice(index, 1);
 				}
-				// ls 本地化
-				localStorage.setItem('dataKey', JSON.stringify(this.list));
+				// // ls 本地化
+				// localStorage.setItem('dataKey', JSON.stringify(this.list));
 			},
 			timeFormat(timeStr) {
 				return moment(timeStr).format('YYYY-MM-DD HH:mm:ss');
+			},
+			edit() {
+				this.list[0].score = +Math.floor(Math.random() * 100);
+			},
+		},
+		computed: {
+			getSum() {
+				return this.list.reduce((sum, item) => (sum += item.score), 0);
+			},
+			getAverage() {
+				return this.list.length ? (this.getSum / this.list.length).toFixed(2) : 0;
+			},
+		},
+		watch: {
+			// 简单写法
+			// list() {
+			// 	// ls 本地化
+			// 	localStorage.setItem('dataKey', JSON.stringify(this.list));
+			// },
+			// 完整写法
+			list: {
+				deep: true,
+				handler() {
+					localStorage.setItem('dataKey', JSON.stringify(this.list));
+				},
 			},
 		},
 	};
